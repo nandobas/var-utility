@@ -1,56 +1,85 @@
 <template>
-   <v-list
-      flat
-      subheader
-      three-line
-    >
-      <v-subheader>General</v-subheader>
+   <v-container class="grey lighten-1">
+        <v-row> 
+            <v-col
+              cols="6"
+            >
+        <v-row no-gutters>
 
-      <v-list-item-group
-        v-model="settings"
-        multiple
-        active-class=""
-      >
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>Notifications</v-list-item-title>
-              <v-list-item-subtitle>Notify me about updates to apps or games that I downloaded</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>Sound</v-list-item-title>
-              <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>Auto-add widgets</v-list-item-title>
-              <v-list-item-subtitle>Automatically add home screen widgets when downloads complete</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+              
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+            <v-col
+              key="c2"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined></v-sheet>
+            </v-col>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+        </v-row>
+        <v-row no-gutters>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+              
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+            <v-col
+              key="c2"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined></v-sheet>
+            </v-col>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+        </v-row>
+        <v-row no-gutters>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+              
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+            <v-col
+              key="c2"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined></v-sheet>
+            </v-col>
+            <v-col
+              key="c1"
+              cols="1"
+              md="3"
+            >
+              <v-sheet height="100" outlined>  </v-sheet>
+            </v-col>
+        </v-row>
+            </v-col>
+        </v-row>
+      </v-container>
 </template>
 
 <script>
