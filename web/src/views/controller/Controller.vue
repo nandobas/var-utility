@@ -2,81 +2,143 @@
    <v-container class="grey lighten-1">
         <v-row> 
             <v-col
-              cols="6"
+              cols="4" class="grey"
             >
-        <v-row no-gutters>
 
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-              
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
+        <v-row no-gutters style="width: 650px;">
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left"
+                  key="zoom-top-left"
+                  elevation="1"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-top-left</v-icon>
+                </v-btn>
             </v-col>
-            <v-col
-              key="c2"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined></v-sheet>
+
+            <v-col class="text-center ml-n1" md="2"> 
+                <v-btn
+                  class="float-left"
+                  key="zoom-top-mid"
+                  elevation="2"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-up</v-icon>
+                </v-btn>
             </v-col>
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
-            </v-col>
-        </v-row>
-        <v-row no-gutters>
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-              
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
-            </v-col>
-            <v-col
-              key="c2"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined></v-sheet>
-            </v-col>
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
+            
+
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left ml-n1"
+                  key="zoom-top-right"
+                  elevation="2"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-top-right</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
-        <v-row no-gutters>
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-              
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
+        <v-row no-gutters style="width: 650px;">
+            <v-col class="text-center mt-1" md="2"> 
+                <v-btn
+                  class="float-left"
+                  key="zoom-left"
+                  elevation="2"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
             </v-col>
-            <v-col
-              key="c2"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined></v-sheet>
+            <v-col class="text-center mt-1 ml-n1" md="2"> 
+                <v-btn
+                  class="float-left"
+                  key="zoom-center"
+                  elevation="3"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-circle-outline</v-icon>
+                </v-btn>
             </v-col>
-            <v-col
-              key="c1"
-              cols="1"
-              md="3"
-            >
-              <v-sheet height="100" outlined>  </v-sheet>
+            <v-col class="text-center mt-1 ml-n1" md="2"> 
+                <v-btn
+                  class="float-left"
+                  key="zoom-right"
+                  elevation="3"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-right</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
+        <v-row no-gutters style="width: 650px;">
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left mt-1"
+                  key="zoom-bottom-left"
+                  elevation="3"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-bottom-left</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left mt-1 ml-n1"
+                  key="zoom-down"
+                  elevation="5"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-down</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left mt-1 ml-n2"
+                  key="zoom-bottom-right"
+                  elevation="5"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <v-icon>mdi-arrow-bottom-right</v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+            </v-col>
+            <v-col
+              cols="6" class="blue float-right"
+            >
+            </v-col>
+            <v-col
+              cols="2" class="green float-right"
+            >
             </v-col>
         </v-row>
       </v-container>
@@ -87,6 +149,7 @@
     data () {
       return {
         settings: [],
+        btnZoomSize:100,
       }
     },
   }
