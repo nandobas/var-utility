@@ -52,7 +52,7 @@
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
       </template>
-      <v-app-bar-title class="title" >Var Light</v-app-bar-title>
+      <v-app-bar-title class="title" >VarLight</v-app-bar-title>
 
       <v-spacer></v-spacer>
 

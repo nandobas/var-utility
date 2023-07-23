@@ -1,10 +1,9 @@
 <template>
-   <v-container class="grey lighten-1">
+   <v-container class="grey lighten-1" style="width: 100%;  max-width: 1899px;">
         <v-row> 
             <v-col
-              cols="4" class="grey"
+              cols="3" class="grey"
             >
-
         <v-row no-gutters style="width: 650px;">
             <v-col class="text-center" md="2"> 
                 <v-btn
@@ -48,6 +47,19 @@
                   <v-icon>mdi-arrow-top-right</v-icon>
                 </v-btn>
             </v-col>
+            <v-col class="text-center" md="2"> 
+                <v-btn
+                  class="float-left ml-3"
+                  key="zoom-in"
+                  elevation="2"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <span>ZOOM IN</span>
+                </v-btn>
+            </v-col>
         </v-row>
         <v-row no-gutters style="width: 650px;">
             <v-col class="text-center mt-1" md="2"> 
@@ -87,6 +99,19 @@
                   :width="btnZoomSize"
                 >
                   <v-icon>mdi-arrow-right</v-icon>
+                </v-btn>
+            </v-col>
+            <v-col class="text-center mt-1 ml-1" md="2"> 
+                <v-btn
+                  class="float-left ml-3"
+                  key="zoom-out"
+                  elevation="3"  
+                  outlined
+                  color="primary"
+                  :height="btnZoomSize"
+                  :width="btnZoomSize"
+                >
+                  <span>ZOOM OUT</span>
                 </v-btn>
             </v-col>
         </v-row>
@@ -132,10 +157,17 @@
             </v-col>
         </v-row>
             </v-col>
+
             <v-col
-              cols="6" class="blue float-right"
+              cols="2" class="blue float-right"
             >
             </v-col>
+
+            <v-col
+              cols="5" class="yelow float-right"
+            >
+            </v-col>
+
             <v-col
               cols="2" class="green float-right"
             >
