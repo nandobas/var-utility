@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/FlowingSPDG/vmix-utility/scraper"
+	"github.com/nandobas/var-utility/scraper"
 )
 
 var (

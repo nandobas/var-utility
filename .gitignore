@@ -16,3 +16,10 @@
 build/*
 server/static/*
 server/vMixMultiview/*
+
+# Build directory
+build/
+.idea/
+.volumes/
+vendor/
+.fleet/

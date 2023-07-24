@@ -14,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	vmixgo "github.com/FlowingSPDG/vmix-go"
-	"github.com/FlowingSPDG/vmix-utility/scraper"
+	"github.com/nandobas/var-utility/scraper"
 )
 
 // vMix variables
@@ -26,10 +26,8 @@ var (
 )
 
 // Static files
-//go:embed static/*
 var staticFS embed.FS
 
-//go:embed vMixMultiview/*
 var multiviewFS embed.FS
 
 // GetvMixURLHandler returns vMix API Endpoint.

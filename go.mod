@@ -1,4 +1,4 @@
-module github.com/FlowingSPDG/vmix-utility
+module github.com/nandobas/var-utility
 
 go 1.16
 
