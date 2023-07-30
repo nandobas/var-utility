@@ -12,6 +12,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveUpLeft()"
             >
               <v-icon>mdi-arrow-top-left</v-icon>
             </v-btn>
@@ -26,6 +27,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveUp()"
             >
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
@@ -40,6 +42,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveUpRight()"
             >
               <v-icon>mdi-arrow-top-right</v-icon>
             </v-btn>
@@ -53,6 +56,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="ZoomIn()"
             >
               <span>ZOOM IN</span>
             </v-btn>
@@ -68,6 +72,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveLeft()"
             >
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
@@ -81,6 +86,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="PTZHome()"
             >
               <v-icon>mdi-circle-outline</v-icon>
             </v-btn>
@@ -94,6 +100,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveRight()"
             >
               <v-icon>mdi-arrow-right</v-icon>
             </v-btn>
@@ -107,6 +114,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="ZoomOut()"
             >
               <span>ZOOM OUT</span>
             </v-btn>
@@ -122,6 +130,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveDownLeft"
             >
               <v-icon>mdi-arrow-bottom-left</v-icon>
             </v-btn>
@@ -135,6 +144,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveDown"
             >
               <v-icon>mdi-arrow-down</v-icon>
             </v-btn>
@@ -148,6 +158,7 @@
               color="primary"
               :height="btnZoomSize"
               :width="btnZoomSize"
+              @click="MoveDownRight"
             >
               <v-icon>mdi-arrow-bottom-right</v-icon>
             </v-btn>
@@ -256,7 +267,164 @@ export default {
     return {
       settings: [],
       btnZoomSize: 100,
+      zoomValue: 1,
+      zoomInput: 3,
+      speedZoom: 0.8,
+      speedStopPropagation: 200,
     };
+  },
+  methods: {
+    setZoom(zoomInput) {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=SetZoom&Input=" +
+          zoomInput +
+          "&Value=" +
+          this.zoomValue
+      );
+    },
+    ZoomIncrase() {
+      let zoomValue = this.zoomValue + 0.5;
+      if (zoomValue >= 5) {
+        return false;
+      }
+      this.zoomValue = zoomValue;
+      this.setZoom(this.zoomInput);
+    },
+    ZoomDecrase() {
+      let zoomValue = this.zoomValue - 0.5;
+      if (zoomValue <= 0.5) {
+        return false;
+      }
+      this.zoomValue = zoomValue;
+      this.setZoom(this.zoomInput);
+    },
+    ZoomIn() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZZoomIn&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.zoomStop();
+      }, this.speedStopPropagation);
+    },
+    ZoomOut() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZZoomOut&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.zoomStop();
+      }, this.speedStopPropagation);
+    },
+    zoomStop() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZZoomStop&Input=" +
+          this.zoomInput
+      );
+    },
+    moveStop() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveStop&Input=" +
+          this.zoomInput
+      );
+    },
+    MoveUpLeft() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveUpLeft&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveUp() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveUp&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveUpRight() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveUpRight&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveLeft() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveLeft&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveRight() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveRight&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveDownLeft() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveDownLeft&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveDown() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveDown&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    MoveDownRight() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZMoveDownRight&Input=" +
+          this.zoomInput +
+          "&Value=" +
+          this.speedZoom
+      );
+      setTimeout(() => {
+        this.moveStop();
+      }, this.speedStopPropagation);
+    },
+    PTZHome() {
+      this.$axios.get(
+        "http://localhost:8088/api/?Function=PTZHome&Input=" + this.zoomInput
+      );
+    },
   },
 };
 </script>
