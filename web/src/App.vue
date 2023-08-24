@@ -3,8 +3,8 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Application </v-list-item-title>
-          <v-list-item-subtitle> subtext </v-list-item-subtitle>
+          <v-list-item-title class="text-h6"> Var Light </v-list-item-title>
+          <v-list-item-subtitle> var-utility </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -35,13 +35,14 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+      <span style="margin-top: 5px">Sync</span>
+      <v-icon
+        style="margin-top: 15px; margin-left: 3px"
+        dense
+        key="sync"
+        :class="[{ syncOn: syncOn }]"
+        >mdi-access-point</v-icon
+      >
 
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -54,14 +55,44 @@
   </v-app>
 </template>
 
+<style lang="scss">
+.syncOn {
+  background-color: #209b1c;
+}
+</style>
+
 <script>
 export default {
-  data: () => ({
-    drawer: false,
-    items: [
-      { title: "Controller", icon: "mdi-view-dashboard", to: "/" },
-      { title: "About", icon: "mdi-help-box", to: "about" },
-    ],
-  }),
+  data() {
+    return {
+      drawer: false,
+      items: [
+        { title: "Controller", icon: "mdi-view-dashboard", to: "/" },
+        { title: "About", icon: "mdi-help-box", to: "about" },
+      ],
+      syncOn: false,
+    };
+  },
+  methods: {
+    async VerifyConnection() {
+      let on = true;
+      this.syncOn = true;
+      await this.$axios
+        .get("http://localhost:8088/api/?")
+        .then(function (response) {
+          on = true;
+        })
+        .catch(function (error) {
+          on = false;
+        });
+      this.syncOn = on;
+    },
+  },
+  created: function () {
+    this.VerifyConnection();
+    const loop = setInterval(() => {
+      this.VerifyConnection();
+    }, 10000);
+  },
 };
 </script>

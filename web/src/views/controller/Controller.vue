@@ -167,22 +167,62 @@
 
         <v-row>
           <v-col>
-            <v-btn key="zoom-cam-1" elevation="2" outlined color="white">
+            <v-btn
+              key="zoom-cam-1"
+              elevation="2"
+              outlined
+              color="white"
+              :class="[
+                'toggle-button',
+                { toggled: zoomCamIsToggled[1], error: zoomCamIsIsError[1] },
+              ]"
+              @click="ReplayXCameraY('B', 1)"
+            >
               <span>CAM 1</span>
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn key="zoom-cam-2" elevation="2" outlined color="white">
+            <v-btn
+              key="zoom-cam-2"
+              elevation="2"
+              outlined
+              color="white"
+              :class="[
+                'toggle-button',
+                { toggled: zoomCamIsToggled[2], error: zoomCamIsIsError[2] },
+              ]"
+              @click="ReplayXCameraY('B', 2)"
+            >
               <span>CAM 2</span>
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn key="zoom-cam-3" elevation="2" outlined color="white">
+            <v-btn
+              key="zoom-cam-3"
+              elevation="2"
+              outlined
+              color="white"
+              :class="[
+                'toggle-button',
+                { toggled: zoomCamIsToggled[3], error: zoomCamIsIsError[3] },
+              ]"
+              @click="ReplayXCameraY('B', 3)"
+            >
               <span>CAM 3</span>
             </v-btn>
           </v-col>
           <v-col>
-            <v-btn key="zoom-cam-4" elevation="2" outlined color="white">
+            <v-btn
+              key="zoom-cam-4"
+              elevation="2"
+              outlined
+              color="white"
+              :class="[
+                'toggle-button',
+                { toggled: zoomCamIsToggled[4], error: zoomCamIsIsError[4] },
+              ]"
+              @click="ReplayXCameraY('B', 4)"
+            >
               <span>CAM 4</span>
             </v-btn>
           </v-col>
@@ -258,173 +298,68 @@
 
       <v-col cols="2" class="green float-right"> </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="3" class="grey">
+        <v-row style="height: 150px">
+          <v-col md="2"> </v-col>
+        </v-row>
+        <v-row no-gutters style="width: 650px">
+          <v-col class="text-center" md="3">
+            <v-btn
+              :class="[
+                'float-left',
+                'toggle-button',
+                { toggled: scriptStartIsToggle },
+              ]"
+              key="script-start"
+              elevation="1"
+              outlined
+              color="primary"
+              :height="150"
+              :width="150"
+              @click="ScriptStart()"
+            >
+              <v-icon x-large>mdi-play-circle-outline</v-icon>
+            </v-btn>
+          </v-col>
+
+          <v-col class="text-center">
+            <v-btn
+              :class="[
+                'float-left ml-3',
+                'toggle-button',
+                { toggled: replayPauseIsToggle },
+              ]"
+              key="replay-pause"
+              elevation="2"
+              outlined
+              color="primary"
+              :height="150"
+              :width="150"
+              @click="ReplayPause()"
+            >
+              <v-icon x-large>mdi-pause-circle-outline</v-icon>
+            </v-btn>
+          </v-col>
+
+          <v-col class="text-center" md="2"> </v-col>
+        </v-row>
+      </v-col>
+
+      <v-col cols="3" class="blue">
+        <v-row style="height: 57%">
+          <v-col></v-col>
+        </v-row>
+      </v-col>
+
+      <v-col cols="4" class="yelow float-right"> </v-col>
+
+      <v-col cols="2" class="green float-right"> </v-col>
+    </v-row>
   </v-container>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      settings: [],
-      btnZoomSize: 100,
-      zoomValue: 1,
-      zoomInput: 3,
-      speedZoom: 0.8,
-      speedStopPropagation: 200,
-    };
-  },
-  methods: {
-    setZoom(zoomInput) {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=SetZoom&Input=" +
-          zoomInput +
-          "&Value=" +
-          this.zoomValue
-      );
-    },
-    ZoomIncrase() {
-      let zoomValue = this.zoomValue + 0.5;
-      if (zoomValue >= 5) {
-        return false;
-      }
-      this.zoomValue = zoomValue;
-      this.setZoom(this.zoomInput);
-    },
-    ZoomDecrase() {
-      let zoomValue = this.zoomValue - 0.5;
-      if (zoomValue <= 0.5) {
-        return false;
-      }
-      this.zoomValue = zoomValue;
-      this.setZoom(this.zoomInput);
-    },
-    ZoomIn() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomIn&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.zoomStop();
-      }, this.speedStopPropagation);
-    },
-    ZoomOut() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomOut&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.zoomStop();
-      }, this.speedStopPropagation);
-    },
-    zoomStop() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomStop&Input=" +
-          this.zoomInput
-      );
-    },
-    moveStop() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveStop&Input=" +
-          this.zoomInput
-      );
-    },
-    MoveUpLeft() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUpLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveUp() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUp&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveUpRight() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUpRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveLeft() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveRight() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveDownLeft() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDownLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveDown() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDown&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    MoveDownRight() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDownRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
-      setTimeout(() => {
-        this.moveStop();
-      }, this.speedStopPropagation);
-    },
-    PTZHome() {
-      this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZHome&Input=" + this.zoomInput
-      );
-    },
-  },
-};
-</script>
+<style lang="scss">
+@import "./Controller.scss";
+</style>
+<script src="./Controller.js"></script>
