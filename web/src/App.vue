@@ -67,10 +67,13 @@ export default {
     return {
       drawer: false,
       items: [
-        { title: "Controller", icon: "mdi-view-dashboard", to: "/" },
-        { title: "About", icon: "mdi-help-box", to: "about" },
+        { title: "Controle", icon: "mdi-view-dashboard", to: "/" },
+        { title: "Configurar", icon: "mdi mdi-cogs", to: "/settings" },
+        { title: "Sobre", icon: "mdi-help-box", to: "about" },
       ],
       syncOn: false,
+      ipv4: "localhost",
+      ipv4Port: "8088",
     };
   },
   methods: {
@@ -78,7 +81,7 @@ export default {
       let on = true;
       this.syncOn = true;
       await this.$axios
-        .get("http://localhost:8088/api/?")
+        .get("http://" + this.ipv4 + ":" + this.ipv4Port + "/api/?")
         .then(function (response) {
           on = true;
         })
@@ -89,6 +92,15 @@ export default {
     },
   },
   created: function () {
+    let ipv4Info = localStorage.getItem("serverIpv4Address");
+    if (ipv4Info) {
+      this.ipv4 = ipv4Info;
+    }
+    let ipv4PortInfo = localStorage.getItem("serverIpv4Port");
+    if (ipv4PortInfo) {
+      this.ipv4Port = ipv4PortInfo;
+    }
+
     this.VerifyConnection();
     const loop = setInterval(() => {
       this.VerifyConnection();

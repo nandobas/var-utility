@@ -1,6 +1,8 @@
 export default {
   data() {
     return {
+      ipv4: "localhost",
+      ipv4Port: "8088",
       zoomCamIsToggled: {
         1: false,
         2: false,
@@ -24,10 +26,22 @@ export default {
       replaySpeed: 0.75,
     };
   },
+  created: function () {
+    let ipv4Info = localStorage.getItem("serverIpv4Address");
+    let ipv4Port = localStorage.getItem("serverIpv4Port");
+    if (ipv4Info) {
+      this.ipv4 = ipv4Info;
+      this.ipv4Port = ipv4Port;
+    }
+  },
   methods: {
+    ipv4Address() {
+      return "http://" + this.ipv4 + ":" + this.ipv4Port + "/api";
+    },
     setZoom(zoomInput) {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=SetZoom&Input=" +
+        this.ipv4Address() +
+          "/?Function=SetZoom&Input=" +
           zoomInput +
           "&Value=" +
           this.zoomValue
@@ -51,7 +65,8 @@ export default {
     },
     ZoomIn() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomIn&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZZoomIn&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -62,7 +77,8 @@ export default {
     },
     ZoomOut() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomOut&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZZoomOut&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -73,19 +89,18 @@ export default {
     },
     zoomStop() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZZoomStop&Input=" +
-          this.zoomInput
+        this.ipv4Address() + "/?Function=PTZZoomStop&Input=" + this.zoomInput
       );
     },
     moveStop() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveStop&Input=" +
-          this.zoomInput
+        this.ipv4Address() + "/?Function=PTZMoveStop&Input=" + this.zoomInput
       );
     },
     MoveUpLeft() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUpLeft&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveUpLeft&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -96,7 +111,8 @@ export default {
     },
     MoveUp() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUp&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveUp&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -107,7 +123,8 @@ export default {
     },
     MoveUpRight() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveUpRight&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveUpRight&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -118,7 +135,8 @@ export default {
     },
     MoveLeft() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveLeft&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveLeft&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -129,7 +147,8 @@ export default {
     },
     MoveRight() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveRight&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveRight&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -140,7 +159,8 @@ export default {
     },
     MoveDownLeft() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDownLeft&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveDownLeft&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -151,7 +171,8 @@ export default {
     },
     MoveDown() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDown&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveDown&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -162,7 +183,8 @@ export default {
     },
     MoveDownRight() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZMoveDownRight&Input=" +
+        this.ipv4Address() +
+          "/?Function=PTZMoveDownRight&Input=" +
           this.zoomInput +
           "&Value=" +
           this.speedZoom
@@ -173,13 +195,13 @@ export default {
     },
     PTZHome() {
       this.$axios.get(
-        "http://localhost:8088/api/?Function=PTZHome&Input=" + this.zoomInput
+        this.ipv4Address() + "/?Function=PTZHome&Input=" + this.zoomInput
       );
     },
     async ReplayXCameraY(X, Y) {
       let ok = false;
       await this.$axios
-        .get("http://localhost:8088/api/?Function=Replay" + X + "Camera" + Y)
+        .get(this.ipv4Address() + "/?Function=Replay" + X + "Camera" + Y)
         .then(function (response) {
           console.log(response);
           ok = true;
@@ -210,7 +232,8 @@ export default {
       this.replayPauseIsToggle = false;
       await this.$axios
         .get(
-          "http://localhost:8088/api/?Function=ReplayFastBackward&Value=" +
+          this.ipv4Address() +
+            "/?Function=ReplayFastBackward&Value=" +
             this.replaySpeed
         )
         .then(function (response) {
@@ -227,7 +250,7 @@ export default {
       this.replayPauseIsToggle = true;
       this.scriptStartIsToggle = false;
       await this.$axios
-        .get("http://localhost:8088/api/?Function=ReplayPause")
+        .get(this.ipv4Address() + "/?Function=ReplayPause")
         .then(function (response) {
           ok = true;
         })

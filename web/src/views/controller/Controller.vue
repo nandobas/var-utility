@@ -1,7 +1,7 @@
 <template>
   <v-container class="grey lighten-1" style="width: 100%; max-width: 1899px">
     <v-row>
-      <v-col cols="3" class="grey">
+      <v-col cols="3">
         <v-row no-gutters style="width: 650px">
           <v-col class="text-center" md="2">
             <v-btn
@@ -229,7 +229,7 @@
         </v-row>
       </v-col>
 
-      <v-col cols="3" class="blue">
+      <v-col cols="3" class="grey">
         <v-row style="height: 57%">
           <v-col></v-col>
         </v-row>
@@ -296,10 +296,10 @@
 
       <v-col cols="4" class="yelow float-right"> </v-col>
 
-      <v-col cols="2" class="green float-right"> </v-col>
+      <v-col cols="2" class="grey float-right"> </v-col>
     </v-row>
     <v-row>
-      <v-col cols="3" class="grey">
+      <v-col cols="3">
         <v-row style="height: 150px">
           <v-col md="2"> </v-col>
         </v-row>
@@ -346,7 +346,7 @@
         </v-row>
       </v-col>
 
-      <v-col cols="3" class="blue">
+      <v-col cols="3" class="grey">
         <v-row style="height: 57%">
           <v-col></v-col>
         </v-row>
@@ -354,7 +354,7 @@
 
       <v-col cols="4" class="yelow float-right"> </v-col>
 
-      <v-col cols="2" class="green float-right"> </v-col>
+      <v-col cols="2" class="grey float-right"> </v-col>
     </v-row>
   </v-container>
 </template>
