@@ -1,8 +1,7 @@
+import api from "@/services/api";
 export default {
   data() {
     return {
-      ipv4: "localhost",
-      ipv4Port: "8088",
       zoomCamIsToggled: {
         1: false,
         2: false,
@@ -26,26 +25,9 @@ export default {
       replaySpeed: 0.75,
     };
   },
-  created: function () {
-    let ipv4Info = localStorage.getItem("serverIpv4Address");
-    let ipv4Port = localStorage.getItem("serverIpv4Port");
-    if (ipv4Info) {
-      this.ipv4 = ipv4Info;
-      this.ipv4Port = ipv4Port;
-    }
-  },
   methods: {
-    ipv4Address() {
-      return "http://" + this.ipv4 + ":" + this.ipv4Port + "/api";
-    },
     setZoom(zoomInput) {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=SetZoom&Input=" +
-          zoomInput +
-          "&Value=" +
-          this.zoomValue
-      );
+      api.Exec("SetZoom", this.zoomInput, this.zoomValue);
     },
     ZoomIncrase() {
       let zoomValue = this.zoomValue + 0.5;
@@ -64,147 +46,82 @@ export default {
       this.setZoom(this.zoomInput);
     },
     ZoomIn() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZZoomIn&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZZoomIn", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.zoomStop();
       }, this.speedStopPropagation);
     },
     ZoomOut() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZZoomOut&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("SetZoom", this.zoomInput, this.zoomValue);
       setTimeout(() => {
         this.zoomStop();
       }, this.speedStopPropagation);
     },
     zoomStop() {
-      this.$axios.get(
-        this.ipv4Address() + "/?Function=PTZZoomStop&Input=" + this.zoomInput
-      );
+      api.Exec("PTZZoomStop", this.zoomInput);
     },
     moveStop() {
-      this.$axios.get(
-        this.ipv4Address() + "/?Function=PTZMoveStop&Input=" + this.zoomInput
-      );
+      api.Exec("PTZMoveStop", this.zoomInput);
     },
     MoveUpLeft() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveUpLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveUpLeft", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveUp() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveUp&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveUp", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveUpRight() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveUpRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveUpRight", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveLeft() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveLeft", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveRight() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveRight", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveDownLeft() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveDownLeft&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveDownLeft", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveDown() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveDown&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveDown", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     MoveDownRight() {
-      this.$axios.get(
-        this.ipv4Address() +
-          "/?Function=PTZMoveDownRight&Input=" +
-          this.zoomInput +
-          "&Value=" +
-          this.speedZoom
-      );
+      api.Exec("PTZMoveDownRight", this.zoomInput, this.speedZoom);
       setTimeout(() => {
         this.moveStop();
       }, this.speedStopPropagation);
     },
     PTZHome() {
-      this.$axios.get(
-        this.ipv4Address() + "/?Function=PTZHome&Input=" + this.zoomInput
-      );
+      api.Exec("PTZHome", this.zoomInput);
     },
     async ReplayXCameraY(X, Y) {
       let ok = false;
-      await this.$axios
-        .get(this.ipv4Address() + "/?Function=Replay" + X + "Camera" + Y)
+      await api
+        .Exec("Replay" + X + "Camera" + Y)
         .then(function (response) {
-          console.log(response);
-          ok = true;
+          if (response != undefined) {
+            ok = true;
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -230,14 +147,12 @@ export default {
       let ok = false;
       this.scriptStartIsToggle = true;
       this.replayPauseIsToggle = false;
-      await this.$axios
-        .get(
-          this.ipv4Address() +
-            "/?Function=ReplayFastBackward&Value=" +
-            this.replaySpeed
-        )
+      await api
+        .Exec("ReplayFastBackward", "", this.replaySpeed)
         .then(function (response) {
-          ok = true;
+          if (response != undefined) {
+            ok = true;
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -249,10 +164,12 @@ export default {
       let ok = false;
       this.replayPauseIsToggle = true;
       this.scriptStartIsToggle = false;
-      await this.$axios
-        .get(this.ipv4Address() + "/?Function=ReplayPause")
+      await api
+        .Exec("ReplayPause")
         .then(function (response) {
-          ok = true;
+          if (response != undefined) {
+            ok = true;
+          }
         })
         .catch(function (error) {
           console.log(error);

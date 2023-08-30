@@ -62,6 +62,7 @@
 </style>
 
 <script>
+import api from "./services/api";
 export default {
   data() {
     return {
@@ -72,18 +73,19 @@ export default {
         { title: "Sobre", icon: "mdi-help-box", to: "about" },
       ],
       syncOn: false,
-      ipv4: "localhost",
-      ipv4Port: "8088",
     };
   },
   methods: {
     async VerifyConnection() {
       let on = true;
       this.syncOn = true;
-      await this.$axios
-        .get("http://" + this.ipv4 + ":" + this.ipv4Port + "/api/?")
+      await api
+        .get("/api/?")
         .then(function (response) {
-          on = true;
+          on = false;
+          if (response != undefined) {
+            on = true;
+          }
         })
         .catch(function (error) {
           on = false;
@@ -91,16 +93,7 @@ export default {
       this.syncOn = on;
     },
   },
-  created: function () {
-    let ipv4Info = localStorage.getItem("serverIpv4Address");
-    if (ipv4Info) {
-      this.ipv4 = ipv4Info;
-    }
-    let ipv4PortInfo = localStorage.getItem("serverIpv4Port");
-    if (ipv4PortInfo) {
-      this.ipv4Port = ipv4PortInfo;
-    }
-
+  mounted: function () {
     this.VerifyConnection();
     const loop = setInterval(() => {
       this.VerifyConnection();
